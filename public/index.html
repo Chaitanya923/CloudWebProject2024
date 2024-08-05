@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-8TfeyPONddUNibI45zhsY5R8Gp5Gp3LBC7oe9cwiay28X9gkI7KJjvjXcVSOeBJ7"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+    integrity="sha384-cn7l7gDp0ey2yK5s9Sa5lZO1zZTw4tL7eVOoO2LvZ5qejbl3FKtB+qG4nHvd1HXS"
+    crossorigin="anonymous"></script>
+
+
+  <script>
+    const signUpButton = document.getElementById("signUp");
+    const signInButton = document.getElementById("signIn");
+    const container = document.getElementById("SignUP-container");
+
+    signUpButton.addEventListener("click", () => {
+      container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener("click", () => {
+      container.classList.remove("right-panel-active");
+    });
+  </script>
+  <script
+    src="https://www.paypal.com/sdk/js?client-id=AQQerl7yXo0n1J9j92PKqiZJ2rie7lrPCVM6WtPTHA_j11cKhicRGW9ajdA7dWbp_kZhTQWbIJZBHP9s"></script>
+  <title>WebShop</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
+</html>

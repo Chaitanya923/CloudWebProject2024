@@ -1,0 +1,32 @@
+/* src/components/Hero.css */
+
+.hero {
+    padding: 100px 0;
+    background-color: #f8f9fa;
+    background: url(../../asset/images/hero-bg.jpg) top left;
+  }
+  
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+  }
+  
+  .hero p {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .btn-get-started {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-watch-video {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .btn-watch-video i {
+    font-size: 20px;
+  }
+  

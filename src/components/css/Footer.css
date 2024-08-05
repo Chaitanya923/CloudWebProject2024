@@ -1,0 +1,59 @@
+.footer {
+    background-color: #071952; /* Dark navy for footer */
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+}
+
+.footer-links, .footer-social, .footer-contact, .newsletter-signup {
+    margin: 1rem 0;
+}
+
+.footer-links a {
+    color: white;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.footer-links a:hover {
+    color: #37B7C3; /* Primary color on hover */
+}
+
+.footer-social a {
+    margin: 0 10px;
+}
+
+.footer-social .icon {
+    font-size: 30px; /* Adjust size as needed */
+    color: white; /* Color of the social media icons */
+}
+
+.newsletter-signup input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+}
+
+.newsletter-signup .cta-btn {
+    background-color: #37B7C3; /* Primary color for newsletter CTA */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.newsletter-signup .cta-btn:hover {
+    background-color: #088395; /* Darker teal on hover */
+}
+
+.icon {
+    font-size: 2rem; /* Adjust the size as needed */
+    color: #071952; /* Dark navy color */
+    margin-bottom: 1rem; /* Space between icon and text */
+}
