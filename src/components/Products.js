@@ -42,9 +42,11 @@ const FilterSidebar = () => {
       document.body.classList.remove('overflow-hidden', 'vh-100');
     }
   }, [isMobile, isSidebarOpen]);
+
+  //Data Fetching
   const [products, setProducts] = useState([]);
 
-  const endpoints = '/products' ;
+  const endpoints = '/products';
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -57,6 +59,30 @@ const FilterSidebar = () => {
 
     fetchProducts();
   }, []);
+
+  //Categories Selection & Filtering
+  // State to track selected categories
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  // Function to handle checkbox change
+  const handleCheckboxChange = (category) => {
+    setSelectedCategories((prevSelected) => {
+      if (prevSelected.includes(category)) {
+        // If category is already selected, remove it
+        return prevSelected.filter((item) => item !== category);
+      } else {
+        // Otherwise, add it to the selected categories
+        return [...prevSelected, category];
+      }
+    });
+    console.log('1Selected Categories:', selectedCategories,category);
+
+  };
+
+  // Function to handle filtering based on selected categories
+  const handleFilter = () => {
+    console.log('Selected Categories:', selectedCategories);
+  };
 
   return (
     <div>
@@ -73,26 +99,19 @@ const FilterSidebar = () => {
                 <span className="ml-auto text-uppercase">Reset Filters</span>
               </h1>
               <div className="filter-body">
-                {/* Seating Options */}
-                <h2 className="border-bottom filter-title">Seating Options</h2>
-                <div className="mb-30 filter-options">
-                  <div className="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" className="custom-control-input" id="Indoor" defaultChecked />
-                    <label className="custom-control-label" htmlFor="Indoor">Indoor</label>
-                  </div>
-                  <div className="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" className="custom-control-input" id="Outdoor" />
-                    <label className="custom-control-label" htmlFor="Outdoor">Outdoor</label>
-                  </div>
-                </div>
 
-                {/* Cuisines */}
-                <h2 className="font-xbold body-font border-bottom filter-title">Cuisines</h2>
+                {/* Categories */}
+                <h2 className="font-xbold body-font border-bottom filter-title">Categories</h2>
                 <div className="mb-3 filter-options">
-                  {['Chinese', 'Italian', 'Mexican', 'Thai', 'Gujarati', 'Panjabi', 'South-Indian'].map((cuisine) => (
-                    <div className="custom-control custom-checkbox mb-3" key={cuisine}>
-                      <input type="checkbox" className="custom-control-input" id={cuisine} />
-                      <label className="custom-control-label" htmlFor={cuisine}>{cuisine}</label>
+                  {['Kitchen', 'Bedroom', 'Living Room', 'Study Room'].map((categories) => (
+                    <div className="custom-control custom-checkbox mb-3" key={categories}>
+                      <input type="checkbox" className="custom-control-input" id={categories}
+                        checked={selectedCategories.includes(categories)}
+                        onChange={() => {
+                          handleCheckboxChange(categories);
+                          handleFilter(); // Call filter function when checkbox changes
+                        }} />
+                      <label className="custom-control-label" htmlFor={categories}>{categories}</label>
                     </div>
                   ))}
                 </div>
@@ -106,17 +125,6 @@ const FilterSidebar = () => {
                     <span>$10,000</span>
                   </div>
                 </div>
-
-                {/* Services */}
-                <h2 className="border-bottom filter-title">Services</h2>
-                <div className="mb-3 filter-options">
-                  {['Breakfast', 'Lunch', 'Donner', 'Cafe', 'Brunch', 'Other'].map((service) => (
-                    <div className="custom-control custom-checkbox mb-3" key={service}>
-                      <input type="checkbox" className="custom-control-input" id={service} />
-                      <label className="custom-control-label" htmlFor={service}>{service}</label>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </Col>
@@ -124,7 +132,7 @@ const FilterSidebar = () => {
           <Col md={9} className="content">
             <div className="d-flex justify-content-between border-bottom align-items-center">
               <h2 className="title">Products</h2>
-              <div className="filters-actions d-flex align-items-center">
+              <div className="filters-actions d-md-none d-flex align-items-center">
                 <Button className="btn filter-btn d-md-none" onClick={toggleSidebar}>Filter</Button>
                 <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} className="sort-drop">
                   <DropdownToggle className="btn btn-transparent body-clr p-0 py-1 sm-font fw-400 sort-toggle">
@@ -149,7 +157,7 @@ const FilterSidebar = () => {
                 </Col>
               ))} */}
               {products.map((product, index) => (
-                <Col lg="3" md="6" sm="12" key={index} className="mb-3">
+                <Col lg="3" md="6" sm="12" key={index} className="mb-3 ">
                   <ProductCard
                     productAll={product}
                     imgSrc={product.image}
