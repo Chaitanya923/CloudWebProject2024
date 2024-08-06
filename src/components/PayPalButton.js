@@ -18,7 +18,6 @@ const PayPalButton = ({ amount, onSuccess, onClick }) => {
         const order = await actions.order.capture();
         console.log('Order successfully captured:', order);
         onSuccess(order); // Handle successful transaction
-        onclick(onClick);
       },
       onError: (err) => {
         console.error('Error processing PayPal payment:', err);

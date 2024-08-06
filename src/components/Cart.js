@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -11,22 +11,46 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Cart.css";
 import { useLocation } from 'react-router-dom';
 import PayPalButton from "./PayPalButton";
+import { post } from "./ApiServices";
+import axios from "axios";
 
 
 function Cart() {
 
   const location = useLocation();
   const product = location.state?.productAll;
-  
-  console.log(product);
-  console.log("Hello");
+  // var quantity = 1;
+  const [amount, setAmount] = useState((product.price + 30).toFixed(2)); // Initial amount with default quantity 1
 
-  const handlePaymentSuccess = (order) => {
+  useEffect(() => {
+    setAmount((quantity * product.price + 30).toFixed(2));
+  }, [quantity, product.price]);
+
+  const handlePaymentSuccess = async (order) => {
     // Handle successful payment here
     console.log('Payment was successful!', order);
-  };
+        // Gather order data
+        const orderData = {
+          name: document.getElementById('firstname').value,
+          lastname: document.getElementById('lastname').value,
+          email: document.getElementById('email').value,
+          address: document.getElementById('adress').value+","+document.getElementById('city')+","+document.getElementById('country')+","+document.getElementById('postcode'),
+          paymentid: order.id, // Assuming PayPal returns an ID in the order object
+          quantity: quantity,
+          productid: product.id, // Assuming the product object has an ID
+          amount: amount,
+          orderdate: new Date().toISOString().split('T')[0] // Get current date in YYYY-MM-DD format
+        };
+    
+        try {
+          const response = await axios.post('http://localhost:3000/api/orders', orderData);
+          console.log('Order insertion response:', response.data);
+        } catch (error) {
+          console.error('Error inserting order:', error);
+        }
+      };
 
-  const [quantity, setQuantity] = useState(1);
+  var [quantity, setQuantity] = useState(1);
 
   const handleIncrement = () => setQuantity(quantity + 1);
   const handleDecrement = () => {
@@ -62,7 +86,7 @@ function Cart() {
               <tr>
                 <td>
                   <img
-                    src={product.image}
+                    src={product.ImageUrl}
                     alt="Product"
                     className="img-fluid"
                   />
@@ -79,6 +103,7 @@ function Cart() {
                     </Button>
                     <Input
                       type="text"
+                      id = "quantity"
                       className="quantity mx-2 text-center"
                       value={quantity}
                       readOnly
