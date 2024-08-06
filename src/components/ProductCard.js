@@ -6,7 +6,7 @@ import './css/ProductCard.css';
 import PathConstants from './routes/PathConstants';
 
 const ProductCard = ({ productAll, imgSrc, title, description, price }) => {
-const imagePath = `../asset/imageProduct/${imgSrc}`
+// const imagePath = `../asset/imageProduct/${imgSrc}`
 
   const handleCardClick = (id) => {
     window.location.href = PathConstants.PRODUCTDETAIL.replace(":id",productAll.id)
@@ -24,8 +24,8 @@ const imagePath = `../asset/imageProduct/${imgSrc}`
           <CardImg
             top
             width="100%"
-            src={imagePath}
-            alt="Red Nike Shoes"
+            src={imgSrc}
+            alt={title}
           />
         </div>
         <CardBody className="product-card__info">

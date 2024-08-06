@@ -10,11 +10,12 @@ import {
     Button,
 } from "reactstrap";
 import "./css/ContactUs.css";
+import { post } from "./ApiServices";
 
 function About() {
 
     const [formData, setFormData] = useState({
-        name: "",
+      username: "",
         email: "",
         phone: "",
         message: "",
@@ -26,7 +27,18 @@ function About() {
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form submitted:", formData);
+        const SendformData = async () => {
+          try {
+            const data = await post("/contact",formData); // Call the API utility
+            setFormData({ username: '', email: '', phone: '', message: '' });
+            alert('Message sent successfully!');
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to send message. Please try again.');
+          }
+        };
+    
+        SendformData();
       };
     
     return (
@@ -83,15 +95,15 @@ function About() {
             <FormGroup className="input-container">
               <Input
                 type="text"
-                name="name"
-                id="name"
+                name="username"
+                id="username"
                 placeholder=" "
-                value={formData.name}
+                value={formData.username}
                 onChange={handleChange}
                 className="input"
                 required
               />
-              <Label for="name">Username</Label>
+              <Label for="username">Username</Label>
               {/* <span>Username</span> */}
             </FormGroup>
             <FormGroup className="input-container">
@@ -105,7 +117,7 @@ function About() {
                 className="input"
                 required
               />
-              <Label for="email">Email</Label>
+              <Label for="email" className="className={formData.email ? 'active' : ''}">Email</Label>
               {/* <span>Email</span> */}
             </FormGroup>
             <FormGroup className="input-container">
@@ -134,7 +146,7 @@ function About() {
                 rows="5"
                 required
               />
-              <Label for="message">Message</Label>
+              <Label for="message" className="className={formData.message ? 'active' : ''}">Message</Label>
               {/* <span>Message</span> */}
             </FormGroup>
             <Button color="primary" type="submit" className="btn" block>

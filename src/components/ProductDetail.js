@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button } from 'reactstrap';
 import { FaFacebookF, FaTwitter, FaInstagram, FaWhatsapp, FaPinterest, FaStar, FaStarHalfAlt, FaShoppingCart } from 'react-icons/fa';
 import './css/ProductDetail.css';
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate } from 'react-router-dom';
 import { get } from './ApiServices'; 
+import PathConstants from './routes/PathConstants';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -39,6 +40,8 @@ const ProductDetail = () => {
       try {
         const data = await get(endpoints); // Call the API utility
         setProducts(data);
+        
+  console.log({products})
       } catch (error) {
         console.error('Error fetching the products:', error);
       }
@@ -47,6 +50,11 @@ const ProductDetail = () => {
     fetchProducts();
   }, []);
 
+  const navigate = useNavigate();
+  const productAll = products
+  const handleBuyNow = () => {
+    navigate(PathConstants.CART, { state: { productAll } });
+  };
     return (
         <Container className="card-wrapper">
             <div className='card'>
@@ -54,7 +62,7 @@ const ProductDetail = () => {
                     <Col md="6" className="product-imgs">
                         <div className="img-display">
                             <div className="img-showcase">
-                                    <img src={products.image} alt={'image'} />
+                                    <img src={products.ImageUrl} alt={'image'} />
                                 
                             </div>
                         </div>
@@ -90,11 +98,11 @@ const ProductDetail = () => {
                             </ul>
                         </div>
                         <div className="purchase-info">
-                            <input type="number" min="0" value="1" />
-                            <Button color="primary">
-                                Add to Cart <FaShoppingCart />
+                            {/* <input type="number" min="0" value="1" /> */}
+                            <Button className="btn btn-primary" color="primary" onClick={handleBuyNow}>
+                                Buy Now<FaShoppingCart />
                             </Button>
-                            <Button color="danger">Compare</Button>
+                            {/* <Button color="danger">Compare</Button> */}
                         </div>
                         <div className="social-links">
                             <p>Share At:</p>

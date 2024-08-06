@@ -13,6 +13,7 @@ const ProductList = ({category}) => {
       try {
         const data = await get(endpoints); // Call the API utility
         setProducts(data);
+        console.log(data);
       } catch (error) {
         console.error('Error fetching the products:', error);
       }
@@ -28,7 +29,7 @@ const ProductList = ({category}) => {
           <Col lg="3" md="6" sm="12" key={index} className="mb-4">
             <ProductCard
               productAll= {product}
-              imgSrc={product.image}
+              imgSrc={product.ImageUrl}
               title={product.title}
               description={product.description}
               price={product.price}

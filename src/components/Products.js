@@ -12,15 +12,16 @@ import {
 import './css/FilterSidebar.css';
 import ProductCard from './ProductCard';
 import { get } from './ApiServices';
+import { useOutletContext } from "react-router-dom";
 
 const Products = () => {
+  const { searchTerm } = useOutletContext();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-  
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -41,7 +42,7 @@ const Products = () => {
     }
   }, [isMobile, isSidebarOpen]);
 
-  //Data Fetching
+  // Data Fetching
   const [products, setProducts] = useState([]);
 
   const endpoints = '/products';
@@ -58,52 +59,46 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  //Categories Selection & Filtering
+  // Categories Selection & Filtering
   const [filteredProducts, setFilteredProducts] = useState([]);
-  // State to track selected categories
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  // Function to handle checkbox change
   const handleCheckboxChange = (category) => {
     setSelectedCategories((prevSelected) => {
       if (prevSelected.includes(category)) {
-        // If category is already selected, remove it
         return prevSelected.filter((item) => item !== category);
       } else {
-        // Otherwise, add it to the selected categories
         return [...prevSelected, category];
       }
     });
-
   };
 
-
-  // Function to handle filtering based on selected categories
   useEffect(() => {
     const filterProducts = () => {
-      if (selectedCategories.length === 0) {
-        setFilteredProducts(products); // No filter applied
-      } else {
-        setFilteredProducts(
-          products.filter((product) =>
-            selectedCategories.includes(product.category)
-          )
+      let filtered = products;
+
+      if (searchTerm) {
+        filtered = filtered.filter((product) =>
+          product.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
       }
+
+      if (selectedCategories.length > 0) {
+        filtered = filtered.filter((product) =>
+          selectedCategories.includes(product.category)
+        );
+      }
+
+      setFilteredProducts(filtered);
     };
 
     filterProducts();
-  }, [selectedCategories, products]);
-
-  // Function to handle filtering based on selected categories
-  const handleFilter = () => {
-    console.log('Selected Categories:', selectedCategories);
-  };
+  }, [searchTerm, selectedCategories, products]);
 
   return (
     <div>
       <div className={`overlay ${isSidebarOpen ? 'show' : ''}`}></div>
-      <Container className="search-section">
+      <Container className="search-section" >
         <Row className="main-content ml-md-0">
           <Col md={3} className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
             <div className="sidebar__inner">
@@ -125,7 +120,6 @@ const Products = () => {
                         checked={selectedCategories.includes(categories)}
                         onChange={() => {
                           handleCheckboxChange(categories);
-                          handleFilter(); // Call filter function when checkbox changes
                         }} />
                       <label className="custom-control-label" htmlFor={categories}>{categories}</label>
                     </div>
@@ -166,10 +160,10 @@ const Products = () => {
             </div>
             <Row className="row-grid">
               {filteredProducts.map((product, index) => (
-                <Col lg="3" md="6" sm="12" key={index} className="mb-3 ">
+                <Col lg="3" md="6" sm="12" key={index} className="mb-3">
                   <ProductCard
                     productAll={product}
-                    imgSrc={product.image}
+                    imgSrc={product.ImageUrl}
                     title={product.title}
                     description={product.description}
                     price={product.price}

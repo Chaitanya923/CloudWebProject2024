@@ -74,7 +74,7 @@
   }
   
   .product-card__btn {
-    background-color: var(--primary-color);
+    background-color: #3075dd;
     color: white;
     border: none;
     padding: 10px 20px;

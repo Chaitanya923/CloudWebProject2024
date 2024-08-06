@@ -20,11 +20,20 @@ import {
 } from 'reactstrap';
 import { Outlet, Link } from "react-router-dom";
 import PathConstants from './routes/PathConstants';
-function Header() {
+function Header({ onSearch }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isWebShopOpen, setIsWebShopOpen] = useState(false);
   const toggleWebShop = () => setIsWebShopOpen(!isWebShopOpen);
+  const [searchTerm, setSearchTerm] = useState('');
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    onSearch(searchTerm);
+  };
   return (
     <div>
       <Navbar color="light" light expand="md" fixed="top" className="bg-body-tertiary">
@@ -56,12 +65,14 @@ function Header() {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
-            <Form className="d-flex" inline>
+            <Form className="d-flex" inline  onSubmit={handleSearchSubmit}>
               <Input
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
                 className="me-2"
+              value={searchTerm}
+              onChange={handleSearchChange}
               />
               <Button color="outline-success" type="submit">Search</Button>
             </Form>

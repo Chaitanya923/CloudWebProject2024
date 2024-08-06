@@ -145,3 +145,20 @@
     background-color: transparent;
     color: #fff;
   }
+
+  input:focus + label,
+textarea:focus + label,
+.input:valid + label,
+.input:focus:valid + label {
+  top: -10px;
+  left: 10px;
+  font-size: 12px;
+  color: #007bff;
+}
+
+.active {
+  top: -10px;
+  left: 10px;
+  font-size: 12px;
+  color: #007bff;
+}
