@@ -75,7 +75,7 @@ const Category = () => {
         </CCollapse>
         <CCollapse id="collapseWidthExample3" horizontal visible={visible3}>
           <ProductList 
-          category = "Study Room"
+          category = "Study"
           />
         </CCollapse>
         <CCollapse id="collapseWidthExample4" horizontal visible={visible4}>

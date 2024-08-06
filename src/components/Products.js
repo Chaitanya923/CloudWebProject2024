@@ -119,7 +119,7 @@ const Products = () => {
                 {/* Categories */}
                 <h2 className="font-xbold body-font border-bottom filter-title">Categories</h2>
                 <div className="mb-3 filter-options">
-                  {['Kitchen', 'Bedroom', 'Living Room', 'Study Room'].map((categories) => (
+                  {['Kitchen', 'Bedroom', 'Living Room', 'Study'].map((categories) => (
                     <div className="custom-control custom-checkbox mb-3" key={categories}>
                       <input type="checkbox" className="custom-control-input" id={categories}
                         checked={selectedCategories.includes(categories)}
