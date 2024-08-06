@@ -52,18 +52,6 @@ function Header({ onSearch }) {
               <NavItem>
                 <NavLink href={PathConstants.ABOUT}>Contact</NavLink>
               </NavItem>
-              <UncontrolledDropdown inNavbar nav>
-                <DropdownToggle nav caret>
-                  Categories
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem href="#">Men</DropdownItem>
-                  <DropdownItem href="#">Female</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem href="#">Accesories</DropdownItem>
-                  <DropdownItem href="#">Shoes</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
             </Nav>
             <Form className="d-flex" inline  onSubmit={handleSearchSubmit}>
               <Input
@@ -95,17 +83,6 @@ function Header({ onSearch }) {
               <NavItem>
                 <NavLink href={PathConstants.ABOUT}>Contact</NavLink>
               </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Dropdown
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem href="#">Action</DropdownItem>
-                <DropdownItem href="#">Another action</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem href="#">Something else here</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
           </Nav>
           <Form className="d-flex mt-3" inline>
             <Input

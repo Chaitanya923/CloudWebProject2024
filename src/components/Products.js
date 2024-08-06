@@ -138,7 +138,9 @@ const Products = () => {
                 {/* Price Range */}
                 <h2 className="font-xbold body-font border-bottom filter-title">Price Range</h2>
                 <div className="mb-3 filter-options">
-                  <input 
+                  <input  style={{
+                    width:'100%'
+                  }}
                     type="range" 
                     className="form-control-range" 
                     min="100" 
