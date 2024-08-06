@@ -6,13 +6,10 @@ import {
   Table,
   Button,
   Input,
-  Form,
-  FormGroup,
 } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/Cart.css";
-import { useNavigate,useLocation } from 'react-router-dom';
-import PathConstants from "./routes/PathConstants";
+import { useLocation } from 'react-router-dom';
 import PayPalButton from "./PayPalButton";
 
 
@@ -20,8 +17,7 @@ function Cart() {
 
   const location = useLocation();
   const product = location.state?.productAll;
-  const navigate = useNavigate();
-
+  
   console.log(product);
   console.log("Hello");
 
@@ -42,9 +38,9 @@ function Cart() {
     console.log("Product removed");
   };
 
-  const handleCheckOut = () => {
-    const price = (quantity * product.price + 30).toFixed(2);
-  }
+  // const handleCheckOut = () => {
+  //   const price = (quantity * product.price + 30).toFixed(2);
+  // }
 
   return (
     <Container className="cart-page mt-5">
@@ -190,9 +186,9 @@ function Cart() {
           <p>Total Products: ${(quantity * product.price).toFixed(2)}</p>
           <p>Delivery charges: $30</p>
           <h3>Grand Total: ${(quantity * product.price + 30).toFixed(2)}</h3>
-          <Button color="success" className="checkout-button mt-3" onClick={handleCheckOut}>
+          {/* <Button color="success" className="checkout-button mt-3" onClick={handleCheckOut}>
             Checkout
-          </Button>
+          </Button> */}
           
       <PayPalButton amount={(quantity * product.price + 30)} onSuccess={handlePaymentSuccess} />
         </Col>

@@ -20,7 +20,7 @@ const FilterSidebar = () => {
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-  var filteredData;
+  
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -43,6 +43,7 @@ const FilterSidebar = () => {
 
   //Data Fetching
   const [products, setProducts] = useState([]);
+  var [filteredData, setfilteredData] = useState([]);
 
   const endpoints = '/products';
   useEffect(() => {
@@ -50,8 +51,7 @@ const FilterSidebar = () => {
       try {
         const data = await get(endpoints); // Call the API utility
         setProducts(data);
-        filteredData = products ;
-        console.log("hiii",data)
+        setfilteredData(data);
       } catch (error) {
         console.error('Error fetching the products:', error);
       }
@@ -72,6 +72,7 @@ const FilterSidebar = () => {
         return prevSelected.filter((item) => item !== category);
       } else {
         // Otherwise, add it to the selected categories
+        // filteredData = products.filter(item => selectedCategories.includes(item.category));
         return [...prevSelected, category];
       }
     });
@@ -80,8 +81,8 @@ const FilterSidebar = () => {
 
   // Function to handle filtering based on selected categories
   const handleFilter = () => {
+    filteredData = products.filter(item => selectedCategories.includes("Kitchen"));
     console.log('Selected Categories:', selectedCategories,filteredData);
-    filteredData = products.filter(item => selectedCategories.includes(item.category));
   };
 
   return (
@@ -149,15 +150,7 @@ const FilterSidebar = () => {
               </div>
             </div>
             <Row className="row-grid">
-              {/* {[...Array(10)].map((_, index) => (
-                <Col key={index} md={6} lg={4} xl={4}>
-                  <Card>
-                    <img src={`https://dummyimage.com/300X400/000/fff`} alt="Product" />
-                  </Card>
-                </Col>
-              ))} */}
-              {
-              products.map((product, index) => (
+              {products.map((product, index) => (
                 <Col lg="3" md="6" sm="12" key={index} className="mb-3 ">
                   <ProductCard
                     productAll={product}
