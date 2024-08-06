@@ -13,7 +13,7 @@ import './css/FilterSidebar.css';
 import ProductCard from './ProductCard';
 import { get } from './ApiServices';
 
-const FilterSidebar = () => {
+const Products = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -43,7 +43,6 @@ const FilterSidebar = () => {
 
   //Data Fetching
   const [products, setProducts] = useState([]);
-  var [filteredData, setfilteredData] = useState([]);
 
   const endpoints = '/products';
   useEffect(() => {
@@ -51,7 +50,6 @@ const FilterSidebar = () => {
       try {
         const data = await get(endpoints); // Call the API utility
         setProducts(data);
-        setfilteredData(data);
       } catch (error) {
         console.error('Error fetching the products:', error);
       }
@@ -61,6 +59,7 @@ const FilterSidebar = () => {
   }, []);
 
   //Categories Selection & Filtering
+  const [filteredProducts, setFilteredProducts] = useState([]);
   // State to track selected categories
   const [selectedCategories, setSelectedCategories] = useState([]);
 
@@ -72,17 +71,33 @@ const FilterSidebar = () => {
         return prevSelected.filter((item) => item !== category);
       } else {
         // Otherwise, add it to the selected categories
-        // filteredData = products.filter(item => selectedCategories.includes(item.category));
         return [...prevSelected, category];
       }
     });
 
   };
 
+
+  // Function to handle filtering based on selected categories
+  useEffect(() => {
+    const filterProducts = () => {
+      if (selectedCategories.length === 0) {
+        setFilteredProducts(products); // No filter applied
+      } else {
+        setFilteredProducts(
+          products.filter((product) =>
+            selectedCategories.includes(product.category)
+          )
+        );
+      }
+    };
+
+    filterProducts();
+  }, [selectedCategories, products]);
+
   // Function to handle filtering based on selected categories
   const handleFilter = () => {
-    filteredData = products.filter(item => selectedCategories.includes("Kitchen"));
-    console.log('Selected Categories:', selectedCategories,filteredData);
+    console.log('Selected Categories:', selectedCategories);
   };
 
   return (
@@ -150,7 +165,7 @@ const FilterSidebar = () => {
               </div>
             </div>
             <Row className="row-grid">
-              {products.map((product, index) => (
+              {filteredProducts.map((product, index) => (
                 <Col lg="3" md="6" sm="12" key={index} className="mb-3 ">
                   <ProductCard
                     productAll={product}
@@ -169,4 +184,4 @@ const FilterSidebar = () => {
   );
 };
 
-export default FilterSidebar;
+export default Products;
