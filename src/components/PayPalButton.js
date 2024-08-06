@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const PayPalButton = ({ amount, onSuccess }) => {
+const PayPalButton = ({ amount, onSuccess, onClick }) => {
   const paypalRef = useRef();
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const PayPalButton = ({ amount, onSuccess }) => {
         const order = await actions.order.capture();
         console.log('Order successfully captured:', order);
         onSuccess(order); // Handle successful transaction
+        onclick(onClick);
       },
       onError: (err) => {
         console.error('Error processing PayPal payment:', err);

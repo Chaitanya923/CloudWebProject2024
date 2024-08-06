@@ -11,7 +11,6 @@ function Hero() {
             <h1 style={{color: 'White'}}>
               Welcome to <span>WEBSHOP</span>
             </h1>
-            <p>We are a team of talented designers making websites with Bootstrap</p>
             <div className="d-flex">
               <Button color="primary" href="#about" className="btn-get-started me-3">
                 Get Started

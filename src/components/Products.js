@@ -62,6 +62,7 @@ const Products = () => {
   // Categories Selection & Filtering
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [priceRange, setPriceRange] = useState([100, 10000]); // Initialize the price range
 
   const handleCheckboxChange = (category) => {
     setSelectedCategories((prevSelected) => {
@@ -71,6 +72,11 @@ const Products = () => {
         return [...prevSelected, category];
       }
     });
+  };
+
+  const handlePriceChange = (event) => {
+    const value = event.target.value;
+    setPriceRange([100, value]);
   };
 
   useEffect(() => {
@@ -89,16 +95,20 @@ const Products = () => {
         );
       }
 
+      filtered = filtered.filter((product) =>
+        product.price >= priceRange[0] && product.price <= priceRange[1]
+      );
+
       setFilteredProducts(filtered);
     };
 
     filterProducts();
-  }, [searchTerm, selectedCategories, products]);
+  }, [searchTerm, selectedCategories, priceRange, products]);
 
   return (
     <div>
       <div className={`overlay ${isSidebarOpen ? 'show' : ''}`}></div>
-      <Container className="search-section" >
+      <Container className="search-section">
         <Row className="main-content ml-md-0">
           <Col md={3} className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
             <div className="sidebar__inner">
@@ -110,18 +120,17 @@ const Products = () => {
                 <span className="ml-auto text-uppercase">Reset Filters</span>
               </h1>
               <div className="filter-body">
-
                 {/* Categories */}
                 <h2 className="font-xbold body-font border-bottom filter-title">Categories</h2>
                 <div className="mb-3 filter-options">
-                  {['Kitchen', 'Bedroom', 'Living Room', 'Study'].map((categories) => (
-                    <div className="custom-control custom-checkbox mb-3" key={categories}>
-                      <input type="checkbox" className="custom-control-input" id={categories}
-                        checked={selectedCategories.includes(categories)}
+                  {['Kitchen', 'Bedroom', 'Living Room', 'Study'].map((category) => (
+                    <div className="custom-control custom-checkbox mb-3" key={category}>
+                      <input type="checkbox" className="custom-control-input" id={category}
+                        checked={selectedCategories.includes(category)}
                         onChange={() => {
-                          handleCheckboxChange(categories);
+                          handleCheckboxChange(category);
                         }} />
-                      <label className="custom-control-label" htmlFor={categories}>{categories}</label>
+                      <label className="custom-control-label" htmlFor={category}>{category}</label>
                     </div>
                   ))}
                 </div>
@@ -129,10 +138,17 @@ const Products = () => {
                 {/* Price Range */}
                 <h2 className="font-xbold body-font border-bottom filter-title">Price Range</h2>
                 <div className="mb-3 filter-options">
-                  <input type="range" className="form-control-range" />
+                  <input 
+                    type="range" 
+                    className="form-control-range" 
+                    min="100" 
+                    max="10000" 
+                    value={priceRange[1]} 
+                    onChange={handlePriceChange} 
+                  />
                   <div className="d-flex justify-content-between">
-                    <span>$100</span>
-                    <span>$10,000</span>
+                    <span>${priceRange[0]}</span>
+                    <span>${priceRange[1]}</span>
                   </div>
                 </div>
               </div>
