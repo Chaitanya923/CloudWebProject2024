@@ -5,7 +5,6 @@ const PathConstants = {
     ABOUT: "contact",
     PRODUCTDETAIL: "productdetail/:id",
     PRODUCTS: "products",
-    PAYMENT: "/payment",
 }
 
 export default PathConstants

@@ -43,8 +43,7 @@ function Cart() {
   };
 
   const handleCheckOut = () => {
-    const price = (quantity * product.price + 30).toFixed(2)
-    navigate(PathConstants.PAYMENT , { state: { price} });
+    const price = (quantity * product.price + 30).toFixed(2);
   }
 
   return (

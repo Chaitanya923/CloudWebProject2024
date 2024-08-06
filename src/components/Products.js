@@ -4,14 +4,11 @@ import {
   Row,
   Col,
   Button,
-  Card,
-  CardBody,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
-import StickySidebar from 'sticky-sidebar';
 import './css/FilterSidebar.css';
 import ProductCard from './ProductCard';
 import { get } from './ApiServices';
@@ -23,6 +20,7 @@ const FilterSidebar = () => {
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  var filteredData;
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 768);
@@ -52,6 +50,8 @@ const FilterSidebar = () => {
       try {
         const data = await get(endpoints); // Call the API utility
         setProducts(data);
+        filteredData = products ;
+        console.log("hiii",data)
       } catch (error) {
         console.error('Error fetching the products:', error);
       }
@@ -75,13 +75,13 @@ const FilterSidebar = () => {
         return [...prevSelected, category];
       }
     });
-    console.log('1Selected Categories:', selectedCategories,category);
 
   };
 
   // Function to handle filtering based on selected categories
   const handleFilter = () => {
-    console.log('Selected Categories:', selectedCategories);
+    console.log('Selected Categories:', selectedCategories,filteredData);
+    filteredData = products.filter(item => selectedCategories.includes(item.category));
   };
 
   return (
@@ -156,7 +156,8 @@ const FilterSidebar = () => {
                   </Card>
                 </Col>
               ))} */}
-              {products.map((product, index) => (
+              {
+              products.map((product, index) => (
                 <Col lg="3" md="6" sm="12" key={index} className="mb-3 ">
                   <ProductCard
                     productAll={product}

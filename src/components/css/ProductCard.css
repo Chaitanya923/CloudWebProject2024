@@ -45,7 +45,7 @@
     color: var(--text-color);  
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-line-clamp: 1; /* Limit to 1 lines */
     overflow: hidden;
     text-overflow: ellipsis;
   }

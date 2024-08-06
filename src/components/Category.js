@@ -20,91 +20,67 @@ const Category = () => {
 
   return (
     <>
-    <div className="categories" style={{ display: 'flex', justifyContent: 'center', marginBottom: '15px',marginTop: '50px',overflow:'scroll' }}>
+    <div className="categories">
         <div style={{ textAlign: 'center' }}>
           <img
             src={image1}
-            alt="MEN"
+            alt="Kitchen"
             onClick={() => handleToggle(1)}
             aria-controls="collapseWidthExample1"
-            style={{
-              width: '10rem',
-              height: '10rem',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              margin:' 0 1.5rem',
-            }}
+           className="categories-images"
           />
-          <p>MEN</p>
+          <p>Kitchen</p>
         </div>
         <div style={{ textAlign: 'center' }}>
           <img
             src={image2}
-            alt="WOMEN"
+            alt="Living Room"
             onClick={() => handleToggle(2)}
             aria-controls="collapseWidthExample2"
-            style={{
-              width: '10rem',
-              height: '10rem',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              margin:' 0 1.5rem',
-            }}
+           className="categories-images"
           />
-          <p>WOMEN</p>
+          <p>Living Room</p>
         </div>
         <div style={{ textAlign: 'center' }}>
           <img
             src={image4}
-            alt="SHOES"
+            alt="Study Room"
             onClick={() => handleToggle(3)}
             aria-controls="collapseWidthExample3"
-            style={{
-              width: '10rem',
-              height: '10rem',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              margin:' 0 1.5rem',
-            }}
+           className="categories-images"
           />
-          <p>ELECTRONICS</p>
+          <p>Study Room</p>
         </div>
         <div style={{ textAlign: 'center' }}>
           <img
             src={image3}
-            alt="JEWELERY"
+            alt="Bedroom"
             onClick={() => handleToggle(4)}
             aria-controls="collapseWidthExample4"
-            style={{
-              width: '10rem',
-              height: '10rem',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              margin:' 0 1.5rem',
-            }}
+           className="categories-images"
           />
-          <p>ASSESORIES</p>
+          <p>Bedroom</p>
         </div>
       </div>
       <div style={{ minHeight: '120px' }}>
         <CCollapse id="collapseWidthExample1" horizontal visible={visible1}>
           <ProductList
-           category = "men's clothing"
+           category = "kitchen"
            />
         </CCollapse>
         <CCollapse id="collapseWidthExample2" horizontal visible={visible2}>
           <ProductList 
-          category = "women's clothing"
+          category = "Living Room"
           />
         </CCollapse>
         <CCollapse id="collapseWidthExample3" horizontal visible={visible3}>
           <ProductList 
-          category = "electronics"
+          category = "Study Room"
           />
         </CCollapse>
         <CCollapse id="collapseWidthExample4" horizontal visible={visible4}>
           <ProductList 
-          category = "jewelery"
+          category = "Bedroom"
           />
         </CCollapse>
       </div>

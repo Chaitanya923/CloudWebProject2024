@@ -1,9 +1,10 @@
 /* src/components/Hero.css */
 
 .hero {
-    padding: 100px 0;
+    padding: 200px 0;
     background-color: #f8f9fa;
-    background: url(../../asset/images/hero-bg.jpg) top left;
+    background: url(../../asset/images/Carousel.jpg) top;
+    background-size: cover;
   }
   
   .hero h1 {
@@ -18,11 +19,6 @@
   
   .btn-get-started {
     background-color: #007bff;
-    color: white;
-  }
-  
-  .btn-watch-video {
-    background-color: #6c757d;
     color: white;
   }
   
