@@ -43,7 +43,7 @@ function Cart() {
         };
     
         try {
-          const response = await axios.post('http://localhost:3000/api/orders', orderData);
+          const response = await axios.post('http://172.206.61.172:8082//orders', orderData);
           console.log('Order insertion response:', response.data);
         } catch (error) {
           console.error('Error inserting order:', error);
